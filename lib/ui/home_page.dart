@@ -1,12 +1,14 @@
 import 'dart:io';
 
-import 'package:dicoding_news_app/data/model/article.dart';
 import 'package:dicoding_news_app/ui/settings_page.dart';
 import 'package:dicoding_news_app/common/styles.dart';
 import 'package:dicoding_news_app/widgets/platform_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import '../data/api/api_service.dart';
+import '../provider/news_provider.dart';
 import 'article_list_page.dart';
 
 class HomePage extends StatefulWidget {
@@ -59,7 +61,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  List<BottomNavigationBarItem> _bottomNavBarItems = [
+  final List<BottomNavigationBarItem> _bottomNavBarItems = [
     BottomNavigationBarItem(
       icon: Icon(Platform.isIOS ? CupertinoIcons.news : Icons.public),
       label: _headlineText,
@@ -68,12 +70,14 @@ class _HomePageState extends State<HomePage> {
       icon: Icon(Platform.isIOS ? CupertinoIcons.settings : Icons.settings),
       label: SettingsPage.settingsTitle,
     ),
-
   ];
 
   final List<Widget> _listWidget = [
-    ArticleListPage(),
-    SettingsPage(),
+    ChangeNotifierProvider<NewsProvider>(
+      create: (_) => NewsProvider(apiService: ApiService()),
+      child: const ArticleListPage(),
+    ),
+    const SettingsPage(),
   ];
 
 }
