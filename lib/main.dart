@@ -1,4 +1,5 @@
 import 'package:dicoding_news_app/data/model/article.dart';
+import 'package:dicoding_news_app/ui/article_detail_page.dart';
 import 'package:dicoding_news_app/ui/article_web_view.dart';
 import 'package:dicoding_news_app/ui/detail_page.dart';
 import 'package:dicoding_news_app/ui/home_page.dart';
